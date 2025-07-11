@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Clock</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .clock {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .date {
+            font-size: 1.5rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body class="d-flex justify-conten-center align-items-center vh-100">
+    <div class="text-center">
+        <div class="clock text-primary" id="time">--:--:--</div>
+        <div class="date" id="date">Loading...</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            let h = now.getHours();
+            const m = now.getMinutes();
+            const s = now.getSeconds();
+            const ampm = h >= 12 ? 'PM' : 'AM';
+
+            h = h % 12 || 12;
+
+            const time = `${pad(h)}:${pad(m)}:${pad(s)} ${ampm}`;
+            const date = now.toDateString();
+
+            document.getElementById("time").textContent = time;
+            document.getElementById("date").textContent = date;
+        }
+
+        function pad(n) {
+            return n < 10 ? '0' + n : n;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Show immediately
+
+    </script>
+
+</body>
+
+</html>
