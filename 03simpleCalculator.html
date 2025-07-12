@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        .calculator {
+            width: 300px;
+            margin: auto;
+        }
+        .display {
+            font-size: 2rem;
+            height: 60px;
+            background-color: #f1f1f1;
+            text-align: right;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: .375rem;
+            margin-bottom: 10px;
+        }
+        .btn {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="row g-2">
+        <div class="col-3"><button class="btn btn-secondary" onclick="clearDisplay()">C</button></div>
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('7')">7</button></div>
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('8')">8</button></div>
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('9')">9</button></div>
+
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('4')">4</button></div>
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('5')">5</button></div>
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('6')">6</button></div>
+        <div class="col-3"><button class="btn btn-warning" onclick="appendOperator('+')">+</button></div>
+
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('1')">1</button></div>
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('2')">2</button></div>
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('3')">3</button></div>
+        <div class="col-3"><button class="btn btn-warning" onclick="appendOperator('-')">-</button></div>
+
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('0')">0</button></div>
+        <div class="col-3"><button class="btn btn-light" onclick="appendValue('.')">.</button></div>
+        <div class="col-3"><button class="btn btn-success" onclick="calculate()">=</button></div>
+        <div class="col-3"><button class="btn btn-warning" onclick="appendOperator('*')">×</button></div>
+
+        <div class="col-3"><button class="btn btn-warning" onclick="appendOperator('/')">÷</button></div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let display = document.getElementById("display");
+    let currentInput = "";
+
+    function appendValue(value) {
+        currentInput += value;
+        display.textContent = currentInput;
+    }
+
+    function appendOperator(operator) {
+        if (currentInput === "") return;
+        const lastChar = currentInput.slice(-1);
+        if ("+-*/".includes(lastChar)) return;
+        currentInput += operator;
+        display.textContent = currentInput;
+    }
+
+    function clearDisplay() {
+        currentInput = "";
+        display.textContent = "0";
+    }
+
+    function calculate() {
+        try {
+            const result = eval(currentInput);
+            display.textContent = result;
+            currentInput = result.toString();
+        } catch {
+            display.textContent = "Error";
+            currentInput = "";
+        }
+    }
+</script>
+</body>
+</html>
